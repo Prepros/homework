@@ -12,19 +12,19 @@ echo "<tr>";
 
 for ($i = 1; $i <= 10; $i++) {
     echo "<td>";
-    for ($j = 1; $j <=10; $j++) {
+    for ($j = 1; $j <= 10; $j++) {
         echo "<table>";
-            echo "<tr>";
-             echo "<td>";
-                if ($i % 2 == 0 && $j % 2 == 0) {
-                    echo "{$i} * {$j} = (" . $i * $j . ")";
-                } elseif ($i % 2 != 0 && $j % 2 != 0) {
-                    echo "{$i} * {$j} = [" . $i * $j . "]";
-                } else {
-                    echo "{$i} * {$j} = " . $i * $j;
-                }
-             echo "</td>";
-            echo "</tr>";
+        echo "<tr>";
+        echo "<td>";
+        if ($i % 2 == 0 && $j % 2 == 0) {
+            echo "{$i} * {$j} = (" . $i * $j . ")";
+        } elseif ($i % 2 != 0 && $j % 2 != 0) {
+            echo "{$i} * {$j} = [" . $i * $j . "]";
+        } else {
+            echo "{$i} * {$j} = " . $i * $j;
+        }
+        echo "</td>";
+        echo "</tr>";
         echo "</table>";
     }
     echo "</td>";

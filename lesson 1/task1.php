@@ -12,6 +12,6 @@
 
 $name = "Сергей";
 $age = "25";
-echo "Меня зовут: $name <br>" ;
-echo "Мне $age лет  <br>" ;
+echo "Меня зовут: $name <br>";
+echo "Мне $age лет  <br>";
 echo '"!|\\/\'"\\';

@@ -17,21 +17,21 @@
     X5 ­120 ­ 5 ­ 2015
 */
 
-$bmw = array (
+$bmw = array(
     'model' => 'X5',
     'speed' => 120,
     'doors' => 5,
     'year' => 2015
 );
 
-$toyota = array (
+$toyota = array(
     'model' => 'Camry',
     'speed' => 249,
     'doors' => 4,
     'year' => 2016
 );
 
-$opel = array (
+$opel = array(
     'model' => 'INSIGNIA',
     'speed' => 185,
     'doors' => 4,
