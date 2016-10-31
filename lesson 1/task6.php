@@ -1,6 +1,7 @@
 <?php
 // Задание #6
 // Не соответствует заданию (см. пример)
+// Исправил
 /*
 1) Создайте массив $bmw с ячейками:
     model
@@ -39,9 +40,13 @@ $opel = array(
     'year' => 2015
 );
 
-$auto = array($bmw, $toyota, $opel);
+$auto = array(
+   'bmw' => $bmw,
+    'toyota' => $toyota,
+    'opel' => $opel
+);
 
-foreach ($auto as $val) {
-    echo 'CAR ' . $val['model'] . "<br>";
-    echo $val['model'] . '-' . $val['speed'] . '-' . $val['doors'] . '-' . $val['year'] . "<br><hr>";
+foreach ($auto as $key => $val) {
+    echo 'CAR ' . $key . "<br>";
+    echo $val['model'] . ' ' . $val['speed'] . ' ' . $val['doors'] . ' ' . $val['year'] . "<br><hr>";
 }
