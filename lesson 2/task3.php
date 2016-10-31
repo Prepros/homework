@@ -11,34 +11,19 @@
 
 function calcEverything($operand, $a, $b, $c, $d, $e)
 {
-    $num_args = func_num_args();
     $args = func_get_args();
+    $operand = array_shift($args);
+    $str = implode($operand, $args);
+
     switch ($operand) {
         case '+':
-            $answer = 0;
-            foreach ($args as $key => $val) {
-                if ($key == 0) {
-                    continue;
-                }
-                if ($key + 1 ==  $num_args) {
-                    $str .= $val;
-                } else {
-                    $str .= $val . $operand;
-                }
+            foreach ($args as $val) {
                 $answer += $val;
             }
             break;
         case '-':
             foreach ($args as $key => $val) {
-                if ($key == 0) {
-                    continue;
-                }
-                if ($key + 1 ==  $num_args) {
-                    $str .= $val;
-                } else {
-                    $str .= $val . $operand;
-                }
-                if ($key == 1) {
+                if ($key === 0) {
                     $answer = $val;
                     continue;
                 }
@@ -46,33 +31,14 @@ function calcEverything($operand, $a, $b, $c, $d, $e)
             }
             break;
         case '*':
-            foreach ($args as $key => $val) {
-                if ($key == 0) {
-                    continue;
-                }
-                if ($key + 1 ==  $num_args) {
-                    $str .= $val;
-                } else {
-                    $str .= $val . $operand;
-                }
-                if ($key == 1) {
-                    $answer = $val;
-                    continue;
-                }
+            $answer = 1;
+            foreach ($args as $val) {
                 $answer *= $val;
             }
             break;
         case '/':
             foreach ($args as $key => $val) {
-                if ($key == 0) {
-                    continue;
-                }
-                if ($key + 1 ==  $num_args) {
-                    $str .= $val;
-                } else {
-                    $str .= $val . $operand;
-                }
-                if ($key == 1) {
+                if ($key === 0) {
                     $answer = $val;
                     continue;
                 }
@@ -80,8 +46,7 @@ function calcEverything($operand, $a, $b, $c, $d, $e)
             }
             break;
     }
-    $answer = $str . '=' . $answer;
-    echo $answer;
+    echo $str . '=' . $answer;
 }
 
-calcEverything('/', 1, 2, 3, 4, 1.5);
+calcEverything("/", 1, 2, 3, 4, 1.5);

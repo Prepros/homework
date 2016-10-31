@@ -10,20 +10,18 @@
 
 function math($array, $operand = '+')
 {
-
+    $str = implode($operand, $array);
     if (gettype($operand) !== 'string') {
         echo 'Ошибка: Операнд должен быть сторкой!';
         return false;
     }
     switch ($operand) {
         case '+':
-            $str = implode('+', $array);
             foreach ($array as $val) {
                 $answer += $val;
             }
             break;
         case '-':
-            $str = implode('-', $array);
             foreach ($array as $key => $val) {
                 if ($key === 0) {
                     $answer = $val;
@@ -33,14 +31,12 @@ function math($array, $operand = '+')
             }
             break;
         case '*':
-            $str = implode('*', $array);
             $answer = 1;
             foreach ($array as $key => $val) {
                 $answer *= $val;
             }
             break;
         case '/':
-            $str = implode('/', $array);
             foreach ($array as $key => $val) {
                 if ($key === 0) {
                     $answer = $val;
@@ -63,4 +59,4 @@ $array = array(
     mt_rand(1, 3)
 );
 
-math($array, '/');
+math($array, '+');
