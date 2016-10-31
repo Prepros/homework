@@ -18,7 +18,7 @@ $array = array(
 function array_str($array, $bol = false)
 {
     if ($bol) {
-        return  implode (" ", $array);
+        return implode(" ", $array);
     }
     for ($i = 0; $i < count($array); $i++) {
         echo "<p>$array[$i]</p>";
