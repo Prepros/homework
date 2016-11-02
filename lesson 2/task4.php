@@ -28,7 +28,6 @@ function multiTable($a, $b)
                 return true;
             }
             echo "$i * $j = " . $i * $j;
-            echo "<br>";
             echo "</td>";
             echo "</tr>";
             echo "</table>";
