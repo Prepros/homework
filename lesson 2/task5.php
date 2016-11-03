@@ -48,9 +48,9 @@ function palimdor($str)
 }
 
 // Функция вывода сообщения о наличии палимдора
-function palimdor_message($answer)
+function palimdor_message($str)
 {
-    if ($answer) {
+    if (palimdor($str)) {
         echo 'Палимдор';
     } else {
         echo 'Не палимдор';
@@ -58,5 +58,4 @@ function palimdor_message($answer)
 }
 
 // Вызов функций
-$answer = palimdor('пролДлорп');
-palimdor_message($answer);
+palimdor_message('пролДлорп');
