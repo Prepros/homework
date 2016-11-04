@@ -20,6 +20,8 @@
         <a href="task6.php">Задание №6</a>
         <a href="task7.php">Задание №7</a>
         <a href="task8.php">Задание №8</a>
+        <a href="task9.php">Задание №9</a>
+        <a href="task10.php">Задание №10</a>
     </nav>
 </body>
 </html>
