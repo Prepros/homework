@@ -10,37 +10,37 @@
 ASCII и не выдавать сообщение из пункта №3. Смайл должен храниться в отдельной функции
 */
 
+// Проверка регулярного выражения
+function reg($rx) {
+    // РЕГУЛЯРНЫЕ ВЫРАЖЕНИЯ
+    // .* - любое количество разных символов
+    // packets:(\d+) - находим строку packets:(цыфры от 0-9, от 1 до бесконечности)
+    // .* - любые другие символы после packets
+    $reg_packets = '/.* packets:(\d+) .*/i';
+
+    // Регулярное выражение смайла
+    $reg_smile = '/(:\)+?)/i';
+
+    // Проверка регулярного выражения
+    if (preg_match($reg_smile, $rx)) {
+        smile();
+    } elseif (preg_match($reg_packets, $rx)) {
+        $packets = preg_replace($reg_packets, '$1', $rx);
+        if ($packets > 1000) {
+            echo "Сеть есть! Пакетов ($packets)";
+        } else {
+            echo "Сети нет! Пакетов ($packets)";
+        }
+    }
+}
+
+// Вывод смайла
 function smile() {
     echo "<div style='font-size: 18px;width: 900px; text-align: center; margin: 150px auto 0;'>"
         . file_get_contents('smile.txt') .
         "</div>";
 }
 
-// РЕГУЛЯРНЫЕ ВЫРАЖЕНИЯ
-// .* - любое количество разных символов
-// packets:(\d+) - находим строку packets:(цыфры от 0-9, от 1 до бесконечности)
-// .* - любые другие символы после packets
-$reg_packets = '/.* packets:(\d+) .*/i';
-
-// Регулярное выражение смайла
-$reg_smile = '/(:\)+?)/i';
-
-// Строка RX пакетов со смайлом
-$rx = 'RX packets:950381 errors:10 dropped:0 :) overruns:0 frame:0. ';
-
-// Строка RX пакетов без смайла (больше 1000)
-//$rx = 'RX packets:950381 errors:10 dropped:0 overruns:0 frame:0. ';
-
-// Строка RX пакетов без смайла (меньше 1000)
-//$rx = 'RX packets:950 errors:10 dropped:0 overruns:0 frame:0. ';
-
-if (preg_match($reg_smile, $rx)) {
-    smile();
-} elseif (preg_match($reg_packets, $rx)) {
-    $packets = preg_replace($reg_packets, '$1', $rx);
-    if ($packets > 1000) {
-        echo "Сеть есть! Пакетов ($packets)";
-    } else {
-        echo "Сети нет! Пакетов ($packets)";
-    }
-}
+// Вызов функции
+$data = 'RX packets:951 errors:10 dropped:0 overruns:0 frame:0. :)';
+reg($data);
