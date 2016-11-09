@@ -23,31 +23,35 @@ function palimdor($str)
     // Если количество букв нечетно, то проверяем на палимдор
 
     // А если четно? Разве строка "ААББВВ" не является палиндромом?
+    // Исправил, теперь так же находится палиндромом с четныйм количеством символов
+
+    // Находим центральную букву
+    $center_char = floor($strlen / 2);
+    // Находим все буквы слева, до центральной
+    $left_chars = mb_substr($str, 0, $center_char);
 
     if ($strlen % 2 !== 0) {
-        // Находим центральную букву
-        $center_char = floor($strlen / 2);
-        // Находим все буквы слева, до центральной
-        $left_chars = mb_substr($str, 0, $center_char);
         // Находим все буквы справа, до центральной
         $right_chars = mb_substr($str, $center_char + 1);
-        // Переводим правые буквы в кодировку windows-1251
-        $right_chars = iconv('utf-8', 'windows-1251', $right_chars);
-        // Переворачиваем символы наоборот
-        $right_chars = strrev($right_chars);
-        // Возвращаем кодировку utf-8
-        $right_chars = iconv('windows-1251', 'utf-8', $right_chars);
-
-        // Сверяем правую и левую часть слова
-        if ($left_chars === $right_chars) {
-            // Если равны, то палимдор
-            return true;
-        } else {
-            // Если не равны, то помидор
-            return false;
-        }
     } else {
-        return false; // Количество букв четно, не палимдор
+        // Находим все буквы справа
+        $right_chars = mb_substr($str, $center_char);
+    }
+
+    // Переводим правые буквы в кодировку windows-1251
+    $right_chars = iconv('utf-8', 'windows-1251', $right_chars);
+    // Переворачиваем символы наоборот
+    $right_chars = strrev($right_chars);
+    // Возвращаем кодировку utf-8
+    $right_chars = iconv('windows-1251', 'utf-8', $right_chars);
+
+    // Сверяем правую и левую часть слова
+    if ($left_chars === $right_chars) {
+        // Если равны, то палимдор
+        return true;
+    } else {
+        // Если не равны, то помидор
+        return false;
     }
 }
 
@@ -62,4 +66,4 @@ function palimdor_message($str)
 }
 
 // Вызов функций
-palimdor_message('пролДлорп');
+palimdor_message('АББА');
