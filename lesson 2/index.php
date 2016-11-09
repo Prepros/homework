@@ -16,10 +16,10 @@
         <a href="task2.php">Задание №2</a>
         <a href="task3.php">Задание №3</a>
         <a href="task4.php">Задание №4</a>
-        <a href="task5.php">Задание №5</a>
+        <a href="task5.php">[Не принято] Задание №5</a>
         <a href="task6.php">Задание №6</a>
         <a href="task7.php">Задание №7</a>
-        <a href="task8.php">Задание №8</a>
+        <a href="task8.php">[НЕ принято] Задание №8</a>
         <a href="task9.php">Задание №9</a>
         <a href="task10.php">Задание №10</a>
     </nav>
