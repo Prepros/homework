@@ -66,4 +66,7 @@ function palimdor_message($str)
 }
 
 // Вызов функций
-palimdor_message('АББА');
+echo $str = 'АББА';
+echo "\n";
+palimdor_message($str);
+echo "\n";
