@@ -23,10 +23,13 @@ function reg($rx) {
     $reg_smile = '/(:\)+?)/i';
 
     // Проверка регулярного выражения
-    if (preg_match($reg_smile, $rx)) {
-        smile();
-    } elseif (preg_match($reg_packets, $rx)) {
+    if (preg_match($reg_packets, $rx)) {
         $packets = preg_replace($reg_packets, '$1', $rx);
+        // Проверка количества пакетов
+        if (preg_match($reg_smile, $rx)) {
+            // Если есть вывести смайл
+            return smile();
+        }
         if ($packets > 1000) {
             echo "Сеть есть! Пакетов ($packets)";
         } else {
