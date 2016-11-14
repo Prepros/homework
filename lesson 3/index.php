@@ -3,6 +3,7 @@ require_once "config.php";
 require_once "function.php";
 
 session_start();
+//ini_set('default_charset','UTF-8');
 
 // Подключаемся к БД
 // Если не удалось подключитсья к БД, создаем БД и необходимые таблицы
@@ -29,6 +30,9 @@ try {
     PRIMARY KEY (`id`)) 
     ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci AUTO_INCREMENT = 1
     ");
+    $_SESSION['message'] = "База данных создана";
+    header("Location: index.php");
+    exit;
 }
 
 // Выход пользователя из системы
@@ -65,7 +69,7 @@ if (!empty($_GET['view'])) {
             }
 
             if (preg_match('/(jpeg|jpg|png|gif)/', $_FILES['photo']['type'])) {
-                move_uploaded_file($_FILES['photo']['tmp_name'], $photo . $_FILES['photo']['name']);
+                move_uploaded_file($_FILES['photo']['tmp_name'], $photo . iconv("UTF-8", "cp1251", $_FILES['photo']['name']));
             }
             // Добавляем сессию об успешной регистрации
             $_SESSION['message'] = "Поздравляем Вы успешно зарегистрировались!";
