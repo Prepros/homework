@@ -14,14 +14,14 @@ try {
 } catch (PDOException $e) {
     $pdo = new PDO("mysql:host=$host", $dbuser, $dbpass);
     $pdo->exec("CREATE DATABASE $dbname");
-    $pdo->exec("CREATE TABLE `lesson3`.`users` (
+    $pdo->exec("CREATE TABLE $dbname.`users` (
     `id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
     `login` VARCHAR(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
     `password` VARCHAR(18) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
     PRIMARY KEY (`id`)) 
     ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci AUTO_INCREMENT = 1
     ");
-    $pdo->exec("CREATE TABLE `lesson3`.`users_data` (
+    $pdo->exec("CREATE TABLE $dbname.`users_data` (
     `id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
     `age` TINYINT UNSIGNED NOT NULL,
