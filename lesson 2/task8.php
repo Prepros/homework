@@ -25,12 +25,11 @@ function reg($rx) {
     // Проверка регулярного выражения
     if (preg_match($reg_packets, $rx)) {
         $packets = preg_replace($reg_packets, '$1', $rx);
-        // Проверка количества пакетов
-        if (preg_match($reg_smile, $rx)) {
-            // Если есть вывести смайл
-            return smile();
-        }
         if ($packets > 1000) {
+            if (preg_match($reg_smile, $rx)) {
+                // Если есть вывести смайл
+                return smile();
+            }
             echo "Сеть есть! Пакетов ($packets)";
         } else {
             echo "Сети нет! Пакетов ($packets)";
@@ -71,5 +70,5 @@ function smile() {
 }
 
 // Вызов функции
-$data = 'RX packets:951 errors:10 dropped:0 overruns:0 frame:0. :)';
+$data = 'RX packets:9511 errors:10 dropped:0 overruns:0 frame:0. :)';
 reg($data);
