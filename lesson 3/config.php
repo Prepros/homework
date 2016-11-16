@@ -2,7 +2,7 @@
 $host = 'localhost';
 $dbname = 'lesson3';
 $dbuser = 'root';
-$dbpass = '';
+$dbpass = 'password';
 
 $template = 'template/';
 $photo = 'photo/';
