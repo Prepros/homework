@@ -48,6 +48,15 @@ if (!empty($_GET['view'])) {
     if($_GET['view'] == 'registration') {
         // Если пользователь нажал на кнопку Зарегистрироваться
         if (!empty($_POST['registration'])) {
+            if (!empty($_FILES)) {
+                if (preg_match('/(.jpeg|.jpg|.png|.gif)/', $_FILES['photo']['type'])) {
+                    $photo_name = $_FILES['photo']['name'];
+                    move_uploaded_file($_FILES['photo']['tmp_name'], $photo . iconv("UTF-8", "cp1251", $photo_name));
+                } else {
+                    $photo_name = null;
+                }
+            }
+
             // Добавляем пользователя в БД
             try {
                 $sql = 'INSERT INTO users (login, password) VALUES (:login, :password)';
@@ -61,16 +70,13 @@ if (!empty($_GET['view'])) {
                 $s->bindValue(':name', htmlout($_POST['name']));
                 $s->bindValue(':age', htmlout($_POST['age']));
                 $s->bindValue(':about', htmlout($_POST['about']));
-                $s->bindValue(':photo', htmlout($_FILES['photo']['name']));
+                $s->bindValue(':photo', htmlout($photo_name));
                 $s->execute();
             } catch (PDOException $e) {
                 echo $e->getMessage();
                 exit;
             }
 
-            if (preg_match('/(jpeg|jpg|png|gif)/', $_FILES['photo']['type'])) {
-                move_uploaded_file($_FILES['photo']['tmp_name'], $photo . iconv("UTF-8", "cp1251", $_FILES['photo']['name']));
-            }
             // Добавляем сессию об успешной регистрации
             $_SESSION['message'] = "Поздравляем Вы успешно зарегистрировались!";
 
@@ -127,7 +133,6 @@ if (!empty($_GET['view'])) {
 
         // Массив всех картинок лежащих в папке photo
         $photo_arr = glob($photo . '*');
-
         foreach ($photo_arr as $item) {
             $photo_name[] = substr($item, strpos($item, '/') + 1);
         }
