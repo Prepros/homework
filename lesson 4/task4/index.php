@@ -2,14 +2,16 @@
 //function recursion($array) {
 //    if (is_array($array)) {
 //        foreach ($array as $key => $val) {
-//            if ($key != 'pageid' || $key != 'title') {
-//                recursion($val);
+//            if ($key == 'pageid' || $key == 'title') {
+////                echo "$key = $val <br>";
+//                $data[$key] = $val;
+//                continue;
 //            } else {
-//                echo "$key => $val<br>";
+//                recursion($val);
 //            }
 //        }
 //    }
-//
+//    return $data;
 //}
 
 // 1. инициализация
@@ -30,9 +32,11 @@ curl_close($ch);
 $data = json_decode($output, true);
 
 // 6. ищем title и pageid
+//print_r(recursion($data));
+
 function title($val, $key) {
     if($key == 'title' || $key == 'pageid') {
-        echo "$key = $val \r\n";
+        echo "$key = $val <br>";
     }
 }
 
