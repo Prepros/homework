@@ -8,6 +8,7 @@ class Controller
     protected $func; // Для работы с функциями
     protected $root; // Путь до корневой папки
     protected $web_root; // Путь до корневой ссылки сайта
+    protected $mail; // Для отправки email сообщений
 
     // Задаем параметры передаваемые в страницу по умолчанию
     protected $params = array(
@@ -21,6 +22,7 @@ class Controller
         $this->model = Model::getInstance(); // Подключаемся к БД
         $this->config = new Config(); // Подключаемся к классу с конфигами
         $this->func = new Functions(); // Подключаемся к классу с функциями
+        $this->mail = new \PHPMailer();
 
         $this->root = $this->config->getRoot();
         $this->web_root = $this->config->getWebRoot();
@@ -120,5 +122,23 @@ class Controller
             }
         }
         return $result;
+    }
+
+    // Проверка каптчи
+    protected function trueCaptcha()
+    {
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $recaptcha = $_POST['g-recaptcha-response'];
+
+        $recaptcha_object = new \ReCaptcha\ReCaptcha("6LctwQwUAAAAANxCrtI6PUGM5fvtTkQsLrLI3p-5");
+        $resp = $recaptcha_object->verify($recaptcha, $ip);
+
+        if ($resp->isSuccess()) {
+            $_SESSION['message'] .= "<br> Рекаптча пройдена";
+        } else {
+            $_SESSION['message'] = "Не удалось зарегистрировать пользователя - $resp->getErrorCodes()";
+            header("Location: {$this->web_root}registry");
+            exit;
+        }
     }
 }

@@ -17,6 +17,11 @@ class Config
         'template' => 'template/default/',
         'upload' => 'upload/'
     );
+    
+    public $mail = array(
+        'myAddress' => 'prepros@loftschool.slak',
+        'myName' => 'Робот регистрации пользователей'
+    );
 
     // Переводим путь до запрашиваемого класса в путь, используемый в namespace
     // app/controller => app\controller

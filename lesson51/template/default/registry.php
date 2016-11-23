@@ -24,6 +24,7 @@
             <h3>Фото:</h3>
             <input type="file" name="photo" placeholder="Загрузите свое фото">
         </label>
+        <div class="g-recaptcha" data-sitekey="6LctwQwUAAAAANj6g6gwdodQRFVhc8SQsdbM5Esa"></div>
         <input type="submit" name="registration" value="Зарегистрироваться">
     </div>
 </form>

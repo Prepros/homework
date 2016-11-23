@@ -1,6 +1,8 @@
 <?php
 namespace app\core;
 
+use ReCaptcha\ReCaptcha;
+
 class RegistryController extends Controller
 {
     // Задаем параметры передаваемые в страницу по умолчанию
@@ -21,6 +23,9 @@ class RegistryController extends Controller
             $age =  $_POST['age'];
             $about =  $_POST['about'];
 
+            // Проверка каптчи
+            $this->trueCaptcha();
+
             // Проверям была ли отправлена картинка
             if (isset($_FILES['photo']) && $_FILES['photo']['error'] != 4) {
                 $photo = $_FILES['photo'];
@@ -31,7 +36,7 @@ class RegistryController extends Controller
             
             // Проверяем существет ли такой пользователь
             if ($this->model->issetUser($login)) {
-                $_SESSION['message'] = 'Данный пользователь уже существует, попробуйте еще раз.';
+                $_SESSION['message'] .= 'Данный пользователь уже существует, попробуйте еще раз.';
                 header("Location: {$this->web_root}registry");
                 exit;
             }
@@ -49,7 +54,11 @@ class RegistryController extends Controller
                     // Зугружаем картинку
                     move_uploaded_file($photo['tmp_name'], $this->config->path['upload'] . iconv("UTF-8", "cp1251", $photo['name']));
                 }
-                $_SESSION['message'] = 'Регистрация прошла успешно';
+
+                // Отправка письма о регистрации
+                $this->sendMail($this->config->mail['myAddress'], $this->config->mail['myName'], $login);
+                
+                $_SESSION['message'] .= 'Регистрация прошла успешно';
                 header("Location: {$this->web_root}signin");
                 exit;
             } else {
@@ -61,5 +70,23 @@ class RegistryController extends Controller
 
         $this->set($category);
         $this->render('registry');
+    }
+    
+    private function sendMail($my_email, $my_name, $user_name)
+    {
+        $this->mail->isMail();                                      // Авторизация через SMTP сервера для отправки почты
+        
+        $this->mail->setFrom($my_email, $my_name);         // От кого почта приходит
+        $this->mail->addAddress($my_email);     // Кому почта отправляется
+
+        $this->mail->Subject = 'Регистрация нового пользователя'; // Текст письма
+        $this->mail->Body = 'Пользователь ' . $user_name . ' успешно зарегистрировался у нас в системе!';               // Тема письма
+
+        // Отправка
+        if($this->mail->send()) {
+            $_SESSION['message'] = "Письмо о регистрации ушло на почту<br>";
+        } else {
+            $_SESSION['message'] = 'Ошибка отправки письмо о регистрации';
+        }
     }
 }
