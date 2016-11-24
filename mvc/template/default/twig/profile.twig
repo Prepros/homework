@@ -1,0 +1,37 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+    <table>
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            {% if ava is defined %}
+                            <img width="200" src="{{ ava }}" alt="">
+                            {% else %}
+                            <img width="200" src="http://0.gravatar.com/avatar/?d=http://jensovet.org/ava/mystery_foto.png&s=50" alt="">
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td style="vertical-align: top;">
+                <table>
+                    <tr><td><strong>id:</strong> {{ id }}</td></tr>
+                    <tr><td><strong>Логин:</strong> {{ login }}</td></tr>
+                    <tr><td><strong>Пароль:</strong> {{ password }}</td></tr>
+                    <tr><td><strong>Имя:</strong> {{ name }}</td></tr>
+                    <tr><td><strong>Возраст:</strong> {{ age }}</td></tr>
+                    <tr><td><strong>Обо мне:</strong><br> {{ about }}</td></tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <nav>
+        <a href="{{ webroot }}profile/addphoto">Добавить фото</a> |
+        <a href="{{ webroot }}profile/photos">Просмотреть все загруженные файлы</a> |
+        <a href="{{ webroot }}users">Просмотреть всех зарегистрированных пользователей</a> |
+        <a href="{{ webroot }}profile/exit">Выйти</a>
+    </nav>
+{% endblock %}

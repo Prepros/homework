@@ -1,0 +1,21 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+    <table border="1">
+        {% if photo is not empty %}
+            {% for item in photo %}
+                <tr>
+                    <td align="center" width="50px">{{ loop.index }}</td>
+                    <td>
+                        <img width="200" src="{{ item }}" alt="">
+                    </td>
+                    <td align="center"><?=$item;?></td>
+                </tr>
+            {% endfor %}
+        {% else %}
+        <p>Пусто - нет файлов</p>
+        {% endif %}
+    </table>
+    <br>
+    <a href="{{ webroot }}profile">В профайл</a>
+{% endblock %}

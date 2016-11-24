@@ -1,0 +1,22 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+    <table width="100%" border="1">
+        <tr style="font-weight: bold;">
+            <td>Имя:</td>
+            <td>Возраст:</td>
+            <td>Описание:</td>
+            <td>Допуск:</td>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.name }}</td>
+            <td>{{ user.age }}</td>
+            <td>{{ user.about }}</td>
+            <td>{{ user.dopusk }}</td>
+        </tr>
+            {% endfor %}
+    </table>
+    <br>
+    <a href="{{ webroot }}profile">В профайл</a>
+{% endblock %}
