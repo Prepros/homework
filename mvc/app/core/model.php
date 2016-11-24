@@ -82,7 +82,8 @@ class Model
                               `name` VARCHAR(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
                               `age` TINYINT NOT NULL,
                               `about` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-                              `ava` VARCHAR(30) CHARACTER SET utf8 COLLATE utf8_general_ci,
+                              `ava` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci,
+                              `ip` INT NOT NULL,
                               PRIMARY KEY (`id`))
                               ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci");
     }

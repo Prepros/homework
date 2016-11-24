@@ -1,6 +1,8 @@
 <?php
 namespace app\core;
 
+use Valitron\Validator;
+
 class Controller
 {
     protected $model; // Для подключения к БД
@@ -10,6 +12,7 @@ class Controller
     protected $web_root; // Путь до корневой ссылки сайта
     protected $mail; // Для отправки email сообщений
     protected $twig; // Шаблонизатор
+    protected $valitron; // Валидация форм
 
     // Задаем параметры передаваемые в страницу по умолчанию
     protected $params = array(
@@ -24,6 +27,7 @@ class Controller
         $this->config = new Config(); // Подключаемся к классу с конфигами
         $this->func = new Functions(); // Подключаемся к классу с функциями
         $this->mail = new \PHPMailer();
+        $this->valitron = new \Valitron\Validator($_POST);
 
         $loader = new \Twig_Loader_Filesystem($this->config->path['template'].'twig');
         $this->twig = new \Twig_Environment($loader, array(

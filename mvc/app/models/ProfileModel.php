@@ -8,7 +8,7 @@ class ProfileModel extends Model
     public function getProfile($id)
     {
         try {
-            $sql = 'SELECT * 
+            $sql = 'SELECT *, inet_ntoa(ip) as ip
                     FROM users 
                     LEFT JOIN users_data 
                     ON users.id = users_data.id

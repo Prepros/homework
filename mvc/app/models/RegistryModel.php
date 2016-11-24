@@ -5,7 +5,7 @@ class RegistryModel extends Model
 {
     // Здесь перечисляются методы работы с БД для контроллера
     // с одноименным названием
-    public function registryUser($login, $pass, $name, $age, $about, $photo)
+    public function registryUser($login, $pass, $name, $age, $about, $photo, $ip)
     {
         try {
             $sql = 'INSERT INTO users (login, password) VALUES (:login, :password)';
@@ -14,12 +14,13 @@ class RegistryModel extends Model
             $s->bindValue(':password', $this->func->htmlout($pass));
             $s->execute();
 
-            $sql = 'INSERT INTO users_data (name, age, about, ava) VALUES (:name, :age, :about, :ava)';
+            $sql = 'INSERT INTO users_data (name, age, about, ava, ip) VALUES (:name, :age, :about, :ava, INET_ATON(:ip))';
             $s = $this->pdo->prepare($sql);
             $s->bindValue(':name', $this->func->htmlout($name));
             $s->bindValue(':age', $this->func->htmlout($age));
             $s->bindValue(':about', $this->func->htmlout($about));
             $s->bindValue(':ava', $this->func->htmlout($photo));
+            $s->bindValue(':ip', $this->func->htmlout($ip));
             $s->execute();
 
             return true;

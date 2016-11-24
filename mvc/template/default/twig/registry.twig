@@ -4,30 +4,46 @@
     <form method="POST" enctype="multipart/form-data">
         <div class="box">
             <label>
+                {% if login is defined %}
+                    <p class="warning">{{ login }}</p>
+                {% endif %}
                 <h3>Логин: *</h3>
-                <input type="text" name="login" placeholder="Введите логин" value="prepros" required>
+                <input type="text" name="login" placeholder="Введите логин" value="prepros" >
             </label>
             <label>
+                {% if password is defined %}
+                    <p class="warning">{{ password }}</p>
+                {% endif %}
                 <h3>Пароль: *</h3>
-                <input type="password" name="password" placeholder="Введите пароль" value="123456" required>
+                <input type="password" name="password" placeholder="Введите пароль" value="1" >
             </label>
             <label>
+                {% if name is defined %}
+                    <p class="warning">{{ name }}</p>
+                {% endif %}
                 <h3>Имя:</h3>
                 <input type="text" name="name" placeholder="Введите имя" value="Сергей">
             </label>
             <label>
+                {% if age is defined %}
+                    <p class="warning">{{ age }}</p>
+                {% endif %}
                 <h3>Возраст:</h3>
                 <input type="text" name="age" placeholder="Введите возраст" value="25">
             </label>
             <label>
+                {% if about is defined %}
+                    <p class="warning">{{ about }}</p>
+                {% endif %}
                 <h3>Описание о себе:</h3>
-                <textarea name="about" rows="10" placeholder="Введите описание о себе">Некоторая инфа о мне</textarea>
+                <textarea name="about" rows="10" placeholder="Введите описание о себе">Этот обучающий курс должен дать вам хороший толчек в том, чтобы сделать свою жизнь проще при работе с почтой. И все это – благодаря превосходной библиотеке PHPMailer. Теперь вы можете посылать почту незадумываясь о заголовках и прочих трудностях.Если вы настроите данный класс правильно, то в последующем, при создании других сайтов, вам не надо будет тратить свое время. Я надеюсь, что вы найдете время посетить сайт класса PHPMailer и почитать документацию к нему и FAQ. Очень важно понять, как устроен класс и ознакомиться со взглядом разработчиков на него. К тому же, на сайте есть другая большая обучающая статья и некоторые примеры.</textarea>
             </label>
             <label>
                 <h3>Фото:</h3>
                 <input type="file" name="photo" placeholder="Загрузите свое фото">
             </label>
             <div class="g-recaptcha" data-sitekey="6LctwQwUAAAAANj6g6gwdodQRFVhc8SQsdbM5Esa"></div>
+            <input type="hidden" name="ip" value="{{ ip }}">
             <input type="submit" name="registration" value="Зарегистрироваться">
         </div>
     </form>

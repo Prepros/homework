@@ -24,3 +24,9 @@ input[type="submit"] {
 .message {
     color: red;
 }
+.warning {
+    padding: 10px 20px;
+    border-radius: 5px;
+    background: #E95450;
+    color: #fff;
+}

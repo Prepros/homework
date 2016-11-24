@@ -12,6 +12,9 @@
   "require": {
     "phpmailer/phpmailer": "v5.2.16",
     "google/recaptcha": "1.1.2",
-    "twig/twig": "1.6.5"
+    "twig/twig": "1.6.5",
+    "vlucas/valitron": "1.1.7",
+    "intervention/image": "2.3.8",
+    "illuminate/database": "v5.3.23"
   }
 }
