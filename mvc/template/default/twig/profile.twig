@@ -7,7 +7,7 @@
                 <table>
                     <tr>
                         <td>
-                            {% if ava is defined %}
+                            {% if ava is not empty %}
                             <img width="200" src="{{ ava }}" alt="">
                             {% else %}
                             <img width="200" src="http://0.gravatar.com/avatar/?d=http://jensovet.org/ava/mystery_foto.png&s=50" alt="">

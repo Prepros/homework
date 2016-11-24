@@ -20,7 +20,10 @@ class ProfileController extends Controller
         $this->loadModel('ProfileModel');
         $profile = $this->model->getProfile($_SESSION['id']);
 
-        $profile['ava'] = $this->web_root . $this->config->path['upload'] . $profile['ava'];
+        if (!empty($profile['ava'])) {
+            $profile['ava'] = $this->web_root . $this->config->path['upload'] . $profile['ava'];
+        }
+
         $this->set($profile);
 //        $this->render('profile');
         $this->renderTwig('profile.twig', $this->params);
