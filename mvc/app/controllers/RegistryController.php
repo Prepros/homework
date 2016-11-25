@@ -18,7 +18,7 @@ class RegistryController extends Controller
         // Если был отправлен POST запрос
         if ($this->isPost()) {
             // Проверка каптчи
-//            $this->trueCaptcha();
+            $this->trueCaptcha();
 
             // Валидация формы
             $result = $this->validate();

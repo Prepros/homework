@@ -1,5 +1,6 @@
 <?php
 namespace app\core;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class ProfileController extends Controller
 {
@@ -38,16 +39,22 @@ class ProfileController extends Controller
         if ($this->isPost()) {
             $id = $_SESSION['id'];
             $photo = $this->files($_FILES['photo']);
-
+           global $count;
+            $count = 0;
             foreach ($photo as $val) {
                 if ($this->isImg($val['type'])) {
                     $this->loadModel('ProfileModel');
+                    $val['name'] = md5($val['name']) . str_replace('image/','.',$val['type']);
+
                     $result = $this->model->insertPhoto($val['name'], $id);
                     if ($result) {
-                        move_uploaded_file($val['tmp_name'], $this->config->path['upload'] . iconv("UTF-8", "cp1251", $val['name']));
+                        $result = move_uploaded_file($val['tmp_name'], $this->config->path['upload'] . iconv("UTF-8", "cp1251", $val['name']));
+                        // Уменьшаем загружаемую картинку
+                        if ($result) {
+                            $img = Image::make($this->config->path['upload'].$val['name']);
+                            $img->resize(480, 480)->save($path_img, 100);
+                        }
                         $_SESSION['message'] = 'Файлы успешно добавлены';
-                        header("Location: {$this->web_root}profile/addphoto");
-                        exit;
                     }
                 } else {
                     $_SESSION['message'] = 'Не балуй такие файлы запрещены :)';
