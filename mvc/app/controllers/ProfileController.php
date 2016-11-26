@@ -1,10 +1,10 @@
 <?php
 namespace app\core;
+
 use Intervention\Image\ImageManagerStatic as Image;
 
 class ProfileController extends Controller
 {
-
     // Задаем параметры передаваемые в страницу по умолчанию
     protected $params = array(
         'title' => 'Домашняя работа №5',
