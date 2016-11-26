@@ -28,7 +28,7 @@ class CreateUsersTable extends Eloquent
                 $table->string('name', 30);
                 $table->tinyInteger('age')->unsigned();
                 $table->text('about');
-                $table->string('ava', 255);
+                $table->string('ava', 255)->nullable();
                 $table->integer('ip');
             });
             $_SESSION['message'] = 'Таблица users успешно создана';

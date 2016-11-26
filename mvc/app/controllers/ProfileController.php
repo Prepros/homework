@@ -19,7 +19,7 @@ class ProfileController extends Controller
 
         // Загружаем указанную модель для работы с БД
         $this->loadModel('User');
-        $profile = $this->model->where('id', $_SESSION['id'])->get()->toArray()[0];
+        $profile = $this->model->where('id', $_SESSION['id'])->first()->toArray();
         $profile['ip'] = long2ip($profile['ip']);
 
         if (!empty($profile['ava'])) {

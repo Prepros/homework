@@ -26,8 +26,8 @@ class SigninController extends Controller
             $result = $this->model->select('id')
                 ->where('login', $login)
                 ->where('password', $password)
-                ->get()
-                ->toArray()[0];
+                ->first()
+                ->toArray();
 
             if ($result !== null) {
                 $_SESSION['id'] = $result['id'];

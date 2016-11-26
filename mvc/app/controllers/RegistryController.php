@@ -18,7 +18,7 @@ class RegistryController extends Controller
         // Если был отправлен POST запрос
         if ($this->isPost()) {
             // Проверка каптчи
-            $this->trueCaptcha();
+//            $this->trueCaptcha();
 
             // Валидация формы
             $result = $this->validate();
@@ -49,7 +49,7 @@ class RegistryController extends Controller
             $this->loadModel('User');
             $user = $this->model->select('login')
                                 ->where('login', $login)
-                                ->get()->toArray()[0];
+                                ->first();
 
             // Проверяем существет ли такой пользователь
             if (!empty($user)) {
