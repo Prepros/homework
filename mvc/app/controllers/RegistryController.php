@@ -32,41 +32,55 @@ class RegistryController extends Controller
             }
 
             // Получаем данные отправленые пользователем через регистрационную форму
-            $login = $_POST['login'];
-            $pass = $_POST['password'];
-            $name = $_POST['name'];
-            $age =  $_POST['age'];
-            $about =  $_POST['about'];
-            $ip = $_POST['ip'];
+            $login = $this->func->htmlout($_POST['login']);
+            $pass = $this->func->htmlout($_POST['password']);
+            $name = $this->func->htmlout($_POST['name']);
+            $age =  $this->func->htmlout($_POST['age']);
+            $about =  $this->func->htmlout($_POST['about']);
+            $ip = $this->func->htmlout($_POST['ip']);
+
             // Проверям была ли отправлена картинка
             if (isset($_FILES['photo']) && $_FILES['photo']['error'] != 4) {
                 $photo = $_FILES['photo'];
-                $photo['name'] = md5($photo['name']) . str_replace('image/','.',$photo['type']);
+                $photo['name'] = md5($photo['name']) . str_replace('image/', '.', $photo['type']);
             }
 
             // Загружаем нужную модель
-            $this->loadModel('RegistryModel');
-            
+            $this->loadModel('User');
+            $user = $this->model->select('login')
+                                ->where('login', $login)
+                                ->get()->toArray()[0];
+
             // Проверяем существет ли такой пользователь
-            if ($this->model->issetUser($login)) {
+            if (!empty($user)) {
                 $_SESSION['message'] .= 'Данный пользователь уже существует, попробуйте еще раз.';
                 header("Location: {$this->web_root}registry");
                 exit;
             }
 
             // Вызываем метод добавления нового пользователя
-            $result = $this->model->registryUser($login, $pass, $name, $age, $about, $photo['name'], $ip);
+            $id = $this->model->insertGetId([
+                'login' => $login,
+                'password' => $pass,
+                'name' => $name,
+                'age' => $age,
+                'about' => $about,
+                'ava' => $photo['name'],
+                'ip' => ip2long($ip)
+            ]);
 
             // Если регистрация прошла успешно
-            if ($result) {
-                // Получаем id зарегистрированного пользователя
-                $id = $this->model->pdo->lastInsertId();
+            if ($id) {
                 $_SESSION['id'] = $id;
 
                 // Проверяем расширение картинки
                 if ($this->isImg($photo['type'])) {
                     // Зугружаем картинку
-                    $result = move_uploaded_file($photo['tmp_name'], $this->config->path['upload'] . iconv("UTF-8", "cp1251", $photo['name']));
+                    $result = move_uploaded_file(
+                        $photo['tmp_name'],
+                        $this->config->path['upload'] .
+                        iconv("UTF-8", "cp1251", $photo['name'])
+                    );
 
                     // Уменьшаем загружаемую картинку
                     if ($result) {
@@ -95,27 +109,28 @@ class RegistryController extends Controller
     // Отправка письма
     private function sendMail($user_name)
     {
-        $this->mail->isSMTP();
-//        $this->mail->setLanguage('ru', $this->config->getRoot(). 'vendor/phpmailer/phpmailer/language/phpmailer.lang-ru.php');
-        $this->mail->CharSet = 'UTF-8';
 //        $this->mail->SMTPDebug = 3;
-        $this->mail->Host = 'smtp.yandex.ru';  // Specify main and backup SMTP servers
-        $this->mail->SMTPAuth = true;                               // Enable SMTP authentication
-        $this->mail->Username = $this->config->mail['myAddress'];                 // SMTP username
-        $this->mail->Password = $this->config->mail['myPass'];                           // SMTP password
-        $this->mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
+
+        $this->mail->isSMTP();
+        $this->mail->CharSet = 'UTF-8';
+
+        $this->mail->Host = 'smtp.yandex.ru';
+        $this->mail->SMTPAuth = true;
+        $this->mail->Username = $this->config->mail['myAddress'];
+        $this->mail->Password = $this->config->mail['myPass'];
+        $this->mail->SMTPSecure = 'ssl';
         $this->mail->Port = 465;
 
-        //$this->mail->isMail();                                      // Авторизация через SMTP сервера для отправки почты
+        //$this->mail->isMail();
         
-        $this->mail->setFrom($this->config->mail['myAddress'], 'Регистрационный робот');         // От кого почта приходит
-        $this->mail->addAddress($this->config->mail['myAddress']);     // Кому почта отправляется
+        $this->mail->setFrom($this->config->mail['myAddress'], 'Регистрационный робот');
+        $this->mail->addAddress($this->config->mail['myAddress']);
 
-        $this->mail->Subject = 'Регистрация нового пользователя'; // Текст письма
-        $this->mail->Body = 'Пользователь ' . $user_name . ' успешно зарегистрировался у нас в системе!';               // Тема письма
+        $this->mail->Subject = 'Регистрация нового пользователя';
+        $this->mail->Body = 'Пользователь ' . $user_name . ' успешно зарегистрировался у нас в системе!';
 
         // Отправка
-        if($this->mail->send()) {
+        if ($this->mail->send()) {
             $_SESSION['message'] = "Письмо о регистрации ушло на почту ";
         } else {
             $_SESSION['message'] = "Ошибка отправки письмо о регистрации " . $this->mail->ErrorInfo;

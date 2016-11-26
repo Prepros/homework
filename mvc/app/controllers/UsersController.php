@@ -8,22 +8,21 @@ class UsersController extends Controller
     {
         $this->isLogin();
 
-        $this->loadModel('UsersModel');
-        $users = $this->model->getUsersAll();
+        $this->loadModel('User');
+        $result = $this->model->all()->toArray();
 
         // Определяем совершенолетие
-        foreach ($users as $key => $val) {
-            foreach ($val as $k => $v) {
-                if ($v['age'] < 18) {
-                    $users[$key][$k]['dopusk'] = 'Не совершенолетний';
-                } else {
-                    $users[$key][$k]['dopusk'] = 'Совершенолетний';
-                }
+        foreach ($result as $key => $val) {
+            $users['users'][$key] = $val;
+            
+            if ($val['age'] < 18) {
+                $users['users'][$key]['dopusk'] = 'Не совершенолетний';
+            } else {
+                $users['users'][$key]['dopusk'] = 'Совершенолетний';
             }
         }
-        
+
         $this->set($users);
         $this->renderTwig('users.twig', $this->params);
-//        $this->render('users');
     }
 }

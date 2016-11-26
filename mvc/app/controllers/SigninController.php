@@ -22,10 +22,15 @@ class SigninController extends Controller
             $login = $_POST['login'];
             $password = $_POST['password'];
 
-            $this->loadModel('SigninModel');
-            $result = $this->model->signinUser($login, $password);
+            $this->loadModel('User');
+            $result = $this->model->select('id')
+                ->where('login', $login)
+                ->where('password', $password)
+                ->get()
+                ->toArray()[0];
+//            $result = $this->model->signinUser($login, $password);
 
-            if ($result) {
+            if ($result !== null) {
                 $_SESSION['id'] = $result['id'];
                 header("Location: {$this->web_root}profile");
                 exit;

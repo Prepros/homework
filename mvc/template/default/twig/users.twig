@@ -1,6 +1,9 @@
 {% extends 'layout.twig' %}
 
 {% block content %}
+    <a href="{{ webroot }}profile">В профайл</a>
+    <br>
+    <br>
     <table width="100%" border="1">
         <tr style="font-weight: bold;">
             <td>Имя:</td>
@@ -17,6 +20,4 @@
         </tr>
             {% endfor %}
     </table>
-    <br>
-    <a href="{{ webroot }}profile">В профайл</a>
 {% endblock %}

@@ -4,10 +4,16 @@ namespace app\core;
 class Config
 {
     // Для работы с БД
-    public $dbhost = 'localhost';
-    public $dbname = 'lesson5';
-    public $dbuser = 'root';
-    public $dbpass = '';
+    public $db = array(
+        'driver' => 'mysql',
+        'host' => 'localhost',
+        'database' => 'mvc',
+        'username' => 'root',
+        'password' => '',
+        'charset'   => 'utf8',
+        'collation' => 'utf8_unicode_ci',
+        'prefix'    => ''
+    );
 
     // Пути к различным каталогам проекта
     public $path = array(

@@ -38,25 +38,17 @@ class Route
         $controller_name = ucfirst($controller) . 'Controller';
         // Название экшена данного контроллера
         $action_name = 'action' . ucfirst($action);
-        // Название модели с которой будет работать данный контроллер
-        $model_name = ucfirst($controller) . 'Model';
 
         // Путь до файла с подключаемым контроллером
         $controller_file = $this->config->path['controllers'] . $controller_name . '.php';
-        // Пусть до файла с подключаемой моделью
-        $model_file = $this->config->path['models'] . $model_name . '.php';
 
         // Ошибка 404 если запрошен не существующий контроллер
         if (!file_exists($controller_file)) {
             self::errorPage404();
         }
+
         // Подключаем файл контроллера
         require_once $controller_file;
-
-        // Подключаем файл метода
-        if (file_exists($model_file)) {
-            require_once $model_file;
-        }
 
         // Получаем пространство имени подключенного контроллера
         $controller_namespace = $this->config->getNameSpace($controller_name);

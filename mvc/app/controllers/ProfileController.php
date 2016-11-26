@@ -18,8 +18,10 @@ class ProfileController extends Controller
         $this->isLogin();
 
         // Загружаем указанную модель для работы с БД
-        $this->loadModel('ProfileModel');
-        $profile = $this->model->getProfile($_SESSION['id']);
+        $this->loadModel('User');
+        $profile = $this->model->where('id', $_SESSION['id'])->get()->toArray()[0];
+        $profile['ip'] = long2ip($profile['ip']);
+//        $profile = $this->model->getProfile($_SESSION['id']);
 
         if (!empty($profile['ava'])) {
             $profile['ava'] = $this->web_root . $this->config->path['upload'] . $profile['ava'];
@@ -39,16 +41,24 @@ class ProfileController extends Controller
         if ($this->isPost()) {
             $id = $_SESSION['id'];
             $photo = $this->files($_FILES['photo']);
-           global $count;
-            $count = 0;
+
             foreach ($photo as $val) {
                 if ($this->isImg($val['type'])) {
-                    $this->loadModel('ProfileModel');
-                    $val['name'] = md5($val['name']) . str_replace('image/','.',$val['type']);
+                    $this->loadModel('Upload');
+                    $val['name'] = md5($val['name']) . str_replace('image/', '.', $val['type']);
 
-                    $result = $this->model->insertPhoto($val['name'], $id);
+                    $result = $this->model->insert([
+                        'id' => $id,
+                        'img' => $val['name']
+                    ]);
+
                     if ($result) {
-                        $result = move_uploaded_file($val['tmp_name'], $this->config->path['upload'] . iconv("UTF-8", "cp1251", $val['name']));
+                        $result = move_uploaded_file(
+                            $val['tmp_name'],
+                            $this->config->path['upload'] .
+                            iconv("UTF-8", "cp1251", $val['name'])
+                        );
+
                         // Уменьшаем загружаемую картинку
                         if ($result) {
                             $img = Image::make($this->config->path['upload'].$val['name']);
@@ -72,15 +82,16 @@ class ProfileController extends Controller
         $this->params['desc'] = 'Страница всех загруженых пользователем картинок:';
         $id = $_SESSION['id'];
 
-        $this->loadModel('ProfileModel');
-        $result = $this->model->getAllPhoto($id);
+        $this->loadModel('Upload');
+//        $result = $this->model->getAllPhoto($id);
+        $result = $this->model->all()->toArray();
 
         foreach ($result as $key => $val) {
             foreach ($val as $k => $v) {
                 $photo['photo'][$key] = $this->web_root . 'upload/' . $v;
             }
         }
-
+        
         $this->set($photo);
         $this->renderTwig('photos.twig', $this->params);
 //        $this->render('photos');

@@ -23,7 +23,7 @@ class Controller
     // Отрабатывается сразу же после создания объекта данного класса
     public function __construct()
     {
-        $this->model = Model::getInstance(); // Подключаемся к БД
+        $this->model = new Model; // Подключаемся к БД Eloquent
         $this->config = new Config(); // Подключаемся к классу с конфигами
         $this->func = new Functions(); // Подключаемся к классу с функциями
         $this->mail = new \PHPMailer();
@@ -33,7 +33,6 @@ class Controller
         $this->twig = new \Twig_Environment($loader, array(
             'cache' => false
         ));
-        $this->twig->addGlobal('session', $_SESSION);
 
         $this->root = $this->config->getRoot();
         $this->web_root = $this->config->getWebRoot();
@@ -42,9 +41,18 @@ class Controller
     // Загружает нужную модель для работы с БД
     protected function loadModel($name)
     {
+        $model_file = $this->config->path['models'] . $name . '.php';
+
+        if (!file_exists($model_file)) {
+            return false;
+        }
+
+        require_once $this->config->path['models'] . $name . '.php';
+
         // Получаем пространство имени подключенной модели
-        $model_namespace =  $this->config->getNameSpace($name, 'core');
+        $model_namespace =  $this->config->getNameSpace($name, 'models');
         // Создаем объект подключенной модели
+
         if (class_exists($model_namespace)) {
             $this->model = new $model_namespace;
             return true;
@@ -68,6 +76,8 @@ class Controller
         // Задаем пути
         $data['template'] = $this->web_root . $this->config->path['template'];
         $data['webroot'] = $this->web_root;
+
+        $this->twig->addGlobal('session', $_SESSION);
 
         // Выводим страницу
         echo $this->twig->render($filename, $data);
@@ -156,6 +166,7 @@ class Controller
     {
         $ip = $_SERVER['REMOTE_ADDR'];
         $recaptcha = $_POST['g-recaptcha-response'];
+//        $url = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$response");
 
         $recaptcha_object = new \ReCaptcha\ReCaptcha($this->config->reCaptcha['secret']);
         $resp = $recaptcha_object->verify($recaptcha, $ip);
