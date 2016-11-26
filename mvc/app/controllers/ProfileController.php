@@ -21,14 +21,12 @@ class ProfileController extends Controller
         $this->loadModel('User');
         $profile = $this->model->where('id', $_SESSION['id'])->get()->toArray()[0];
         $profile['ip'] = long2ip($profile['ip']);
-//        $profile = $this->model->getProfile($_SESSION['id']);
 
         if (!empty($profile['ava'])) {
             $profile['ava'] = $this->web_root . $this->config->path['upload'] . $profile['ava'];
         }
 
         $this->set($profile);
-//        $this->render('profile');
         $this->renderTwig('profile.twig', $this->params);
     }
 
@@ -71,7 +69,7 @@ class ProfileController extends Controller
                 }
             }
         }
-//        $this->render('addphoto');
+
         $this->renderTwig('addphoto.twig', $this->params);
     }
 
@@ -83,7 +81,6 @@ class ProfileController extends Controller
         $id = $_SESSION['id'];
 
         $this->loadModel('Upload');
-//        $result = $this->model->getAllPhoto($id);
         $result = $this->model->all()->toArray();
 
         foreach ($result as $key => $val) {
@@ -91,10 +88,9 @@ class ProfileController extends Controller
                 $photo['photo'][$key] = $this->web_root . 'upload/' . $v;
             }
         }
-        
+
         $this->set($photo);
         $this->renderTwig('photos.twig', $this->params);
-//        $this->render('photos');
     }
 
     // Выход пользователя из системы

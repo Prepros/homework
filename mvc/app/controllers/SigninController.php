@@ -28,7 +28,6 @@ class SigninController extends Controller
                 ->where('password', $password)
                 ->get()
                 ->toArray()[0];
-//            $result = $this->model->signinUser($login, $password);
 
             if ($result !== null) {
                 $_SESSION['id'] = $result['id'];
@@ -41,6 +40,5 @@ class SigninController extends Controller
 
         $this->set($category);
         $this->renderTwig('signin.twig', $this->params);
-//        $this->render('signin');
     }
 }

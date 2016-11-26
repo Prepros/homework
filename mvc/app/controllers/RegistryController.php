@@ -1,7 +1,7 @@
 <?php
 namespace app\core;
-use Intervention\Image\ImageManagerStatic as Image;
 
+use Intervention\Image\ImageManagerStatic as Image;
 use ReCaptcha\ReCaptcha;
 
 class RegistryController extends Controller
