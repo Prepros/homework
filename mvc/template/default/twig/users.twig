@@ -6,6 +6,7 @@
     <br>
     <table width="100%" border="1">
         <tr style="font-weight: bold;">
+            <td>Фото</td>
             <td>Имя:</td>
             <td>Возраст:</td>
             <td>Описание:</td>
@@ -13,10 +14,11 @@
         </tr>
         {% for user in users %}
         <tr>
-            <td>{{ user.name }}</td>
-            <td>{{ user.age }}</td>
-            <td>{{ user.about }}</td>
-            <td>{{ user.dopusk }}</td>
+            <td valign="top"><img style="width: 100px;" src="{{ upload ~ user.ava }}" alt=""></td>
+            <td valign="top">{{ user.name }}</td>
+            <td valign="top">{{ user.age }}</td>
+            <td valign="top">{{ user.about }}</td>
+            <td valign="top">{{ user.dopusk }}</td>
         </tr>
             {% endfor %}
     </table>

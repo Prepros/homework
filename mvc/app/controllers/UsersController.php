@@ -21,8 +21,11 @@ class UsersController extends Controller
                 $users['users'][$key]['dopusk'] = 'Совершенолетний';
             }
         }
-
+        $upload = array(
+            'upload' => $this->config->path['upload']
+        );
         $this->set($users);
+        $this->set($upload);
         $this->renderTwig('users.twig', $this->params);
     }
 }
