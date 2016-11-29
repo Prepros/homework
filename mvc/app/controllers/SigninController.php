@@ -27,7 +27,7 @@ class SigninController extends Controller
                 ->where('login', $login)
                 ->where('password', $password)
                 ->get()
-                ->toArray();
+                ->toArray()[0];
 
             if ($result !== null) {
                 $_SESSION['id'] = $result['id'];
