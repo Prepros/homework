@@ -26,7 +26,7 @@ class SigninController extends Controller
             $result = $this->model->select('id')
                 ->where('login', $login)
                 ->where('password', $password)
-                ->first()
+                ->get()
                 ->toArray();
 
             if ($result !== null) {
