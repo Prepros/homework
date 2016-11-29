@@ -15,6 +15,7 @@
     "twig/twig": "1.6.5",
     "vlucas/valitron": "1.1.7",
     "intervention/image": "2.3.8",
-    "illuminate/database": "v5.3.23"
+    "illuminate/database": "v5.3.23",
+    "fzaninotto/faker": "v1.6.0"
   }
 }

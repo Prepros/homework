@@ -39,6 +39,10 @@ class ComposerStaticInit58ca97180c1d37e0c8999c801053d080
         array (
             'GuzzleHttp\\Psr7\\' => 16,
         ),
+        'F' => 
+        array (
+            'Faker\\' => 6,
+        ),
         'C' => 
         array (
             'Carbon\\' => 7,
@@ -85,6 +89,10 @@ class ComposerStaticInit58ca97180c1d37e0c8999c801053d080
         'GuzzleHttp\\Psr7\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
+        ),
+        'Faker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker',
         ),
         'Carbon\\' => 
         array (
