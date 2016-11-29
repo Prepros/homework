@@ -217,4 +217,3 @@ if (!empty($_GET['view'])) {
     }
 }
 
-
