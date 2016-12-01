@@ -7,9 +7,7 @@ require_once 'config.php';
 require_once 'Product.php';
 require_once 'Category.php';
 
-
-//$res = Capsule::table('categories')->where('name', $cat)->first();
-//print_r($res); exit;
+$faker = \Faker\Factory::create('ru_RU');
 
 //***********
 // Миграция
@@ -38,6 +36,8 @@ try {
     Capsule::schema()->create('products', function ($table) {
         $table->increments('id');
         $table->string('name');
+        $table->text('about');
+        $table->double('price', 5, 2);
         $table->integer('category_id')->unsigned();
         $table->foreign('category_id')->references('id')->on('categories');
     });
@@ -83,6 +83,8 @@ foreach ($products as $cat => $index) {
         $catobj = Capsule::table('categories')->select('id')->where('name', $cat)->first();
         $product = new Product();
         $product->name = $prod;
+        $product->about = $faker->text();
+        $product->price = $faker->randomFloat(null, 5, 1000);
         $product->category_id = $catobj->id;
         $product->save();
     }
