@@ -1,0 +1,10 @@
+AddDefaultCharset utf-8
+php_flag magic_quotes_gpc OFF
+
+DirectoryIndex index.php
+
+RewriteEngine On
+RewriteBase '/rest'
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?route=$1 [L,QSA]

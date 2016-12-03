@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="RU">
+<head>
+    <meta charset="UTF-8">
+    <title>API</title>
+    <style>
+        body {
+            width: 600px;
+            margin: 0 auto;
+        }
+        input, textarea, select {
+            width: 100%;
+            margin-bottom: 15px;
+            padding:10px 20px;
+        }
+        select, #idnumber {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+<h1>Домашняя работа №8</h1>
+<div class="result"></div>
+<h2>Добавление товара через API</h2>
+<form id="my_form" action="http://homework/rest/api/v1/products">
+    <label for="method">Выберите режим отправки</label>
+    <select name="method" id="method">
+        <option>POST</option>
+        <option>PUT</option>
+        <option>DELETE</option>
+    </select>
+    <label for="idnumber">Укажите id товара, если выбрали PUT или DELETE</label>
+    <input id="idnumber" type="text" name="id" placeholder="Укажите id товара">
+    <input type="text" name="name" placeholder="Введите имя товара">
+    <textarea name="about" placeholder="Введите описание товара" rows="10"></textarea>
+    <input type="text" name="price" placeholder="Введите ценц товара">
+    <label for="select">Выбирите категорию товара</label>
+    <select id="select" name="category_id">
+        <?php foreach ($categories as $val) : ?>
+        <option value="<?=$val['id'];?>"><?=$val['name'];?></option>
+        <?php endforeach; ?>
+    </select>
+    <input type="submit" name="add">
+</form>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="<?=$root;?>main.js"></script>
+</body>
+</html>
