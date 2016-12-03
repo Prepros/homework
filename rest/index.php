@@ -53,7 +53,7 @@ ob_start();
 // Проверяем метод запроса
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET': // получить
-        echo "Прямая ссылка: <br>";
+        echo "GET запрос: <br>";
         if (empty($param)) {
             $class_obj->index(); // Все данные
         } else {
@@ -61,7 +61,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
         }
         break;
     case 'POST': // создать
-        print_r($_REQUEST); exit;
         $class_obj->store();
         break;
     case 'PUT': // изменить
