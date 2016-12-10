@@ -2,7 +2,7 @@
 <div class="main-content">
     <div class="content-wrapper">
         <div class="content">
-            <p class="title-page">Статичная страница</p>
+            <p class="title-page">Страница записей</p>
             <!-- Вывод записей в цикле -->
             <?php if (have_posts()) :  while (have_posts()) : the_post(); ?>
                 <h1 class="title-page"><?php the_title(); ?></h1>

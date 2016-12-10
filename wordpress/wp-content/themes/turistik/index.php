@@ -8,7 +8,7 @@
                 <?php
                 $args = array(
                     'post_type' => array('post', 'discount'),
-                    'posts_per_page' => 4,
+                    'posts_per_page' => 3,
                     'paged' => get_query_var('paged')
                 );
                 $posts = query_posts($args);

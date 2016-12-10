@@ -3,16 +3,31 @@
         <div class="sidebar-item__title">Теги</div>
         <div class="sidebar-item__content">
             <ul class="tags-list">
-                <li class="tags-list__item"><a href="#" class="tags-list__item__link">путешествия по россии</a></li>
-                <li class="tags-list__item"><a href="#" class="tags-list__item__link">турция</a></li>
-                <li class="tags-list__item"><a href="#" class="tags-list__item__link">гоа</a></li>
-                <li class="tags-list__item"><a href="#" class="tags-list__item__link">авиабилеты</a></li>
-                <li class="tags-list__item"><a href="#" class="tags-list__item__link">отели</a></li>
-                <li class="tags-list__item"><a href="#" class="tags-list__item__link">европа</a></li>
-                <li class="tags-list__item"><a href="#" class="tags-list__item__link">азия</a></li>
-                <li class="tags-list__item"><a href="#" class="tags-list__item__link">тайланд</a></li>
-                <li class="tags-list__item"><a href="#" class="tags-list__item__link">хостелы</a></li>
-                <li class="tags-list__item"><a href="#" class="tags-list__item__link">шоппинг</a></li>
+                <?php $args = array(
+                    'smallest'                  => 0.9,
+                    'largest'                   => 0.9,
+                    'unit'                      => 'rem',
+                    'number'                    => 45,
+                    'format'                    => 'array',
+                    'separator'                 => "\n",
+                    'orderby'                   => 'name',
+                    'order'                     => 'ASC',
+                    'exclude'                   => null,
+                    'include'                   => null,
+                    'topic_count_text_callback' => '',
+                    'link'                      => 'view',
+                    'echo'                      => false,
+                    'child_of'                  => null,
+                );
+                $tags = (wp_tag_cloud($args));
+                ?>
+                <?php foreach ($tags as $tag) : ?>
+                    <?php $a = new SimpleXMLElement($tag); ?>
+                    <li class="tags-list__item">
+                        <a href="<?php echo $a['href']; ?>" class="tags-list__item__link">
+                            <?php echo (string)$a; ?>
+                        </a></li>
+                <?php endforeach; ?>
             </ul>
         </div>
     </div>
@@ -20,22 +35,7 @@
         <div class="sidebar-item__title">Категории</div>
         <div class="sidebar-item__content">
             <ul class="category-list">
-                <li class="category-list__item"><a href="#" class="category-list__item__link">
-                        Вылеты из
-                        столиц</a>
-                    <ul class="category-list__inner">
-                        <li class="category-list__item"><a href="#" class="category-list__item__link">Москва</a></li>
-                        <li class="category-list__item"><a href="#" class="category-list__item__link">Санкт-Петербург</a></li>
-                    </ul>
-                </li>
-                <li class="category-list__item"><a href="#" class="category-list__item__link">
-                        Вылеты из
-                        регионов</a>
-                    <ul class="category-list__inner">
-                        <li class="category-list__item"><a href="#" class="category-list__item__link">Москва</a></li>
-                        <li class="category-list__item"><a href="#" class="category-list__item__link">Санкт-Петербург</a></li>
-                    </ul>
-                </li>
+                <?php wp_list_categories(); ?>
             </ul>
         </div>
     </div>
