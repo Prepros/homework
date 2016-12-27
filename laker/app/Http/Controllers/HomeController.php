@@ -23,7 +23,7 @@ class HomeController extends Controller
         $userData = $this->searchUser();
         $userData = $this->userValidate($userData);
 
-        if ($userData === false) {
+        if ($userData === false || isset($userData->exception)) {
             $request->session()->push('message', 'Данный пользователь ище существует либо удален');
             return redirect()->route('index');
         }

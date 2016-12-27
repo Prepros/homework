@@ -19,8 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('last_name')->nullable();
             $table->enum('sex', ['Мужской', 'Женский'])->nullable();
             $table->string('screen_name')->nullable();
-            $table->string('photo_max_orig')->nullable();
-            $table->string('photo_200')->nullable();
+            $table->text('photo_max_orig')->nullable();
+            $table->text('photo_200')->nullable();
             $table->text('status')->nullable();
             $table->string('university_name')->nullable();
             $table->text('quotes')->nullable();

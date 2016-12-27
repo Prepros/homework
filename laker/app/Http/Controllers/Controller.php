@@ -53,7 +53,8 @@ class Controller extends BaseController
 
     protected function userValidate($userData)
     {
-        if (!empty($userData->deactivated) || empty($userData->id) || $userData->first_name == 'DELETED') {
+
+        if (!empty($userData->deactivated) || empty($userData->id) || $userData->first_name == 'DELETED' || isset($userData->exception)) {
             Session::push('message', 'Данный пользователь ище существует либо удален');
             return redirect()->route('index');
         }
@@ -72,7 +73,6 @@ class Controller extends BaseController
 
         if (empty($userData->photo_max_orig)) {
             $userData->photo_max_orig = 'http://batona.net/uploads/posts/2016-12/1482737958_01.jpg';
-            dd($userData->photo_max_orig);
         }
 
         if (empty($userData->photo_200)) {
