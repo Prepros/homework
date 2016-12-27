@@ -72,6 +72,7 @@ class Controller extends BaseController
 
         if (empty($userData->photo_max_orig)) {
             $userData->photo_max_orig = 'http://batona.net/uploads/posts/2016-12/1482737958_01.jpg';
+            dd($userData->photo_max_orig);
         }
 
         if (empty($userData->photo_200)) {

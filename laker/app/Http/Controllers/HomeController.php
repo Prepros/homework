@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -30,5 +31,11 @@ class HomeController extends Controller
         $userAll = $this->getUserAll();
 
         return view('index', ['userData' => $userData, 'userAll' => $userAll]);
+    }
+    
+    public function delete($id)
+    {
+        User::destroy($id);
+        return redirect()->route('index');
     }
 }

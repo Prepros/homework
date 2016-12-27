@@ -47,7 +47,7 @@
               @if($user->liker == 1)
                 <li class="addblock__item">
                     <div class="addblock__img-wrapper"><img src="{{ $user->photo_200 }}" class="addblock__img"></div>
-                    <a class="remove" href="{{ url('liker/delete/'.$user->id) }}" data-method="delete" data-token="{{csrf_token()}}"></a>
+                    <a class="remove" href="{{ url('delete/'.$user->id) }}" data-method="post" data-token="{{csrf_token()}}"></a>
                     <div class="addblock__user">{{ $user->first_name }} {{ $user->last_name }}</div>
                 </li>
               @endif
@@ -77,7 +77,7 @@
               @if($user->liker == 0)
                 <li class="addblock__item">
                   <div class="addblock__img-wrapper"><img src="{{ $user->photo_200 }}" class="addblock__img"></div>
-                    <a class="remove" href="{{ url('liker/delete/'.$user->id) }}" data-method="delete" data-token="{{csrf_token()}}"></a>
+                    <a class="remove" href="{{ url('delete/'.$user->id) }}" data-method="post" data-token="{{csrf_token()}}"></a>
                   <div class="addblock__user">{{ $user->first_name }} {{ $user->last_name }}</div>
                 </li>
               @endif
