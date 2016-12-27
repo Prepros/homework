@@ -53,7 +53,7 @@ class Controller extends BaseController
 
     protected function userValidate($userData)
     {
-        if (!empty($userData->deactivated) && empty($userData->id)) {
+        if (!empty($userData->deactivated) || empty($userData->id) || $userData->first_name == 'DELETED') {
             Session::push('message', 'Данный пользователь ище существует либо удален');
             return redirect()->route('index');
         }
@@ -146,7 +146,7 @@ class Controller extends BaseController
         }
 
         // Если пользователь найден вытаскиваем его данные с БД
-        $userData = User::where('id', $userData->id)->get();
+        $userData = User::where('id', $userData->id)->first();
         return $userData;
     }
 

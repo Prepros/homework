@@ -46,9 +46,9 @@
             @foreach($userAll as $user)
               @if($user->liker == 1)
                 <li class="addblock__item">
-                  <div class="addblock__img-wrapper"><img src="{{ $user->photo_200 }}" class="addblock__img"></div>
-                  <div class="remove"></div>
-                  <div class="addblock__user">{{ $user->first_name }} {{ $user->last_name }}</div>
+                    <div class="addblock__img-wrapper"><img src="{{ $user->photo_200 }}" class="addblock__img"></div>
+                    <a class="remove" href="{{ url('liker/delete/'.$user->id) }}" data-method="delete" data-token="{{csrf_token()}}"></a>
+                    <div class="addblock__user">{{ $user->first_name }} {{ $user->last_name }}</div>
                 </li>
               @endif
             @endforeach
@@ -77,7 +77,7 @@
               @if($user->liker == 0)
                 <li class="addblock__item">
                   <div class="addblock__img-wrapper"><img src="{{ $user->photo_200 }}" class="addblock__img"></div>
-                  <div class="remove"></div>
+                    <a class="remove" href="{{ url('liker/delete/'.$user->id) }}" data-method="delete" data-token="{{csrf_token()}}"></a>
                   <div class="addblock__user">{{ $user->first_name }} {{ $user->last_name }}</div>
                 </li>
               @endif
@@ -112,5 +112,6 @@
     <div id="photo_200" style="visibility: hidden;">{{ $userData->photo_200 }}</div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="{{ asset('js/vk.js') }}"></script>
+    <script src="{{ asset('js/laravel.js') }}"></script>
   </body>
 </html>

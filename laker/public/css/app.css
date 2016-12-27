@@ -303,7 +303,7 @@ body {
 .remove {
   display: none;
   top: 4px;
-  right: -6px;
+  right: 2px;
   position: absolute;
   width: 25px;
   height: 25px;
